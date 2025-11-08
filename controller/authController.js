@@ -1,12 +1,5 @@
 const User = require('../Models/user_model');
-const jwt = require('jsonwebtoken');
-
-// Helper to generate JWT
-const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
-    expiresIn: '7d'
-  });
-};
+const {generateToken} = require('../Common/common_functions')
 
 // @desc    Register a new user
 // @route   POST /api/auth/register
@@ -37,6 +30,7 @@ const registerUser = async (req, res) => {
         role: role,
         providerId:providerId
     }
+    console.log("user", user)
     // const token = generateToken(user._id, user.role);    //mongo
     const token = generateToken(user.userId, user.role);
 

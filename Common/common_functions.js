@@ -29,4 +29,12 @@ const verifyJWT=async (req, res, next)=>{
 		return res.status(401).json({ success: false, error: 'JWT Token is expired.' })
 	}
 }
-module.exports={verifyJWT}
+
+// Helper to generate JWT
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
+    expiresIn: '7d'
+  });
+};
+
+module.exports={verifyJWT, generateToken}
