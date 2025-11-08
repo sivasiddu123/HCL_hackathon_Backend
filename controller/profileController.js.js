@@ -22,7 +22,7 @@ const getProfile = async (req, res) => {
 // @access  Private (Patient or Provider)
 const updateProfile = async (req, res) => {
   try {
-    const { userEmail } = req.body;
+    const { userEmail, firstName, lastName } = req.body;
 
     const user = await User.findById(req.user.id);
     if (!user) {
@@ -30,6 +30,8 @@ const updateProfile = async (req, res) => {
     }
 
     if (userEmail) user.userEmail = userEmail;
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
     // if (healthInfo) {
     //   user.healthInfo = {
     //     ...user.healthInfo,

@@ -20,7 +20,10 @@ app.get('/api', (req, res) => {
 });
 
 app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/profile', require('./routes/profileRoutes'))  ;
+app.use('/api/profile', require('./routes/profileRoutes'));
+app.use('/api/v1/wellness', require('./routes/wellness_routes'));
+// app.use('/api/provider', require('./routes/providerRoutes'));
+
 
 // app.listen(process.env.PORT, () => {
 //     console.log('Server is listening at ' + process.env.IP_ADDRESS + ':%s', process.env.PORT);

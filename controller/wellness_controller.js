@@ -3,8 +3,9 @@ const moment = require('moment')
 
 const getDashBoardData = async (req, res) => {
     try {
+        console.log("req.user.id", req.user)
 
-        const wellnessData = await wellnessHistoryModel.aggregate([{ $match: { userId: req.user.id, createdAt: { $gt: moment().startOf('day').unix() } } },
+        const wellnessData = await wellnessHistoryModel.aggregate([{ $match: { userId: req.user.userEmail, createdAt: { $gt: moment().startOf('day').unix() } } },
         {
             $group: {
                 _id: "$vitalType",
