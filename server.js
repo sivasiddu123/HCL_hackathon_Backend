@@ -18,6 +18,8 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to the API!' });
 });
 
+app.use('/api/auth', require('./routes/authRoutes'));
+
 app.listen(process.env.PORT, () => {
     console.log('Server is listening at ' + process.env.IP_ADDRESS + ':%s', process.env.PORT);
 });
