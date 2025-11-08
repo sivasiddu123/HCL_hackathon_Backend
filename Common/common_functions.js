@@ -1,4 +1,4 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const verifyJWT=async (req, res, next)=>{
     try {
