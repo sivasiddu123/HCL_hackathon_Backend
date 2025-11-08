@@ -1,19 +1,12 @@
 const User = require('../Models/user_model');
-const jwt = require('jsonwebtoken');
-
-// Helper to generate JWT
-const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
-    expiresIn: '7d'
-  });
-};
+const {generateToken} = require('../Common/common_functions')
 
 // @desc    Register a new user
 // @route   POST /api/auth/register
 // @access  Public
 const registerUser = async (req, res) => {
     //temp
-    const user={}
+    let user;
   try {
     const { userId, firstName, lastName, userEmail, password, role, providerId } = req.body;
 
@@ -22,13 +15,13 @@ const registerUser = async (req, res) => {
     }
 
     // const userExists = await User.findOne({ email });    //mongo
-    const userExists = user.email && user.email == email  //temp
+    const userExists = user?.email && user.email == email  //temp
     if (userExists) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
     // const user = await User.create({ name, email, password, role }); //mongo
-    const user = {
+    user = {
         userId: userId,
         firstName: firstName,
         lastName:lastName,
@@ -37,6 +30,7 @@ const registerUser = async (req, res) => {
         role: role,
         providerId:providerId
     }
+    console.log("user", user)
     // const token = generateToken(user._id, user.role);    //mongo
     const token = generateToken(user.userId, user.role);
 
