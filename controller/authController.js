@@ -13,7 +13,7 @@ const generateToken = (id, role) => {
 // @access  Public
 const registerUser = async (req, res) => {
     //temp
-    const user={}
+    let user;
   try {
     const { userId, firstName, lastName, userEmail, password, role, providerId } = req.body;
 
@@ -22,13 +22,13 @@ const registerUser = async (req, res) => {
     }
 
     // const userExists = await User.findOne({ email });    //mongo
-    const userExists = user.email && user.email == email  //temp
+    const userExists = user?.email && user.email == email  //temp
     if (userExists) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
     // const user = await User.create({ name, email, password, role }); //mongo
-    const user = {
+    user = {
         userId: userId,
         firstName: firstName,
         lastName:lastName,
