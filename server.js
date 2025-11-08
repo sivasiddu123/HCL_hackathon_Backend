@@ -3,11 +3,12 @@ const app = express();
 const env = require('dotenv');
 env.config();
 const cors = require('cors');
+const connectDb = require('./Models/db-connection')
 
 app.use(express.json());
 
 app.use(cors({
-   origin: []
+   origin: '*'
 }));
 
 app.get('/', (req, res) => {
@@ -19,7 +20,14 @@ app.get('/api', (req, res) => {
 });
 
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/profile', require('./routes/profileRoutes'))  ;
 
-app.listen(process.env.PORT, () => {
-    console.log('Server is listening at ' + process.env.IP_ADDRESS + ':%s', process.env.PORT);
-});
+// app.listen(process.env.PORT, () => {
+//     console.log('Server is listening at ' + process.env.IP_ADDRESS + ':%s', process.env.PORT);
+// });
+connectDb().then(() => {
+    app.listen(process.env.PORT, () => {
+        console.log("server is running at port:" , process.env.PORT);
+    });
+    
+})
