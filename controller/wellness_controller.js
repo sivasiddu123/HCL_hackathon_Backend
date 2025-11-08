@@ -55,4 +55,38 @@ const getDashBoardData = async (req, res) => {
         });
     }
 }
-module.exports = { getDashBoardData };
+const createGoals = async (req, res) => {
+    try {
+        const requiredParams= {
+            steps:req.body.steps,
+            sleep:req.body.sleep
+        }
+        const finalParams=[]
+        for(let key in requiredParams){
+            if(!requiredParams[key]){
+                return res.json({
+                    message:'Invalid parameters'
+                })
+            };
+            finalParams.push({
+                "userId": req.user.userEmail,
+                "vitalType": key,
+                "count": requiredParams[key],
+                "type": "goal",
+                "createdAt": moment(new Date()).unix()
+            })
+        }
+         
+        const wellnessData = await wellnessHistoryModel.create(finalParams);
+        return res.status(200).json({
+            message:'Successfully added'
+        })
+
+    } catch (err) {
+        return res.status(400).json({
+            status: false,
+            message: err.message ? err.message : "Something went wrong"
+        });
+    }
+}
+module.exports = { getDashBoardData ,createGoals};
