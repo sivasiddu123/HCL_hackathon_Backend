@@ -4,11 +4,19 @@ const env = require('dotenv');
 env.config();
 const cors = require('cors');
 
-
+app.use(express.json());
 
 app.use(cors({
    origin: []
 }));
+
+app.get('/', (req, res) => {
+  res.send('Hello from Express!');
+});
+
+app.get('/api', (req, res) => {
+  res.json({ message: 'Welcome to the API!' });
+});
 
 app.listen(process.env.PORT, () => {
     console.log('Server is listening at ' + process.env.IP_ADDRESS + ':%s', process.env.PORT);
